@@ -1,3 +1,11 @@
+:root {
+  --primary-color: #7c3aed;
+  --light-purple: #d8b4fe;
+  --light-grey: #f8f9fa;
+  --secondary-purple: #e9d5ff;
+  --dark-purple: #3b0764;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

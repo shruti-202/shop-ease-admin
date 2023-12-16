@@ -1,11 +1,16 @@
 import axios from "axios";
+import { getCookie } from "./utils/getCookie";
 
 const apiConnection = async (endpoint, method, payload = null) => {
   return await axios({
     method,
-    url: `http://127.0.0.1:3000${endpoint}`,
+    url: `http://127.0.0.1:8000${endpoint}`,
     data: {
       ...payload,
+    },
+    withCredentials: true,
+    headers: {
+      Authorization: `Bearer ${getCookie("token")}`,
     },
   })
     .then((res) => res)
