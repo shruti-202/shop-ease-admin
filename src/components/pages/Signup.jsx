@@ -4,15 +4,17 @@ import Form from "react-bootstrap/Form";
 import apiConnection from "../../apiConnection";
 import Notify from "../common/Notify";
 import { apiEndpoints, httpMethods } from "../../constant/API_ENUM";
+import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
-
   const [signUpFormData, setSignUpFormData] = useState({
     name: "",
     email: "",
     phone: "",
     password: "",
   });
+
+  const navigateToLogin = useNavigate();
 
   const [showNotify, setShowNotify] = useState(false);
   const [notifyData, setNotifyData] = useState({
@@ -58,8 +60,14 @@ export default function Signup() {
   };
 
   return (
-    <div className="signUp w-25 p-5 border border-dark m-5">
+    <div
+      className="signUp w-25 p-4 m-5 mx-auto mt-5"
+      style={{ boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px" }}
+    >
       <Form>
+        <div className="text-center mb-3">
+          <Form.Label as="h5">SIGN UP</Form.Label>
+        </div>
         <Form.Group className="mb-3" controlId="formName">
           <Form.Label>Name</Form.Label>
           <Form.Control
@@ -97,14 +105,38 @@ export default function Signup() {
         </Form.Group>
 
         <Button
-          style={{ backgroundColor: "var(--primary-color)" }}
-          variant="primary"
+          style={{
+            width: "200px",
+            fontWeight: 600,
+            backgroundColor: "var(--primary-color)",
+            marginLeft: "auto",
+            marginRight: "auto",
+            display: "block",
+          }}
           type="submit"
           onClick={(e) => registerUser(e)}
         >
-          Signup
+          SIGN UP
         </Button>
       </Form>
+      <div className="d-flex mt-3 align-items-center gap-2">
+        <p className="mb-0 mr-2">Already have an account?</p>
+        <Button
+          style={{
+            color: "var(--dark-purple)",
+            height: "35px",
+            backgroundColor: "transparent",
+            border: "1px solid var(--dark-purple)",
+            fontSize: "16px",
+            fontWeight: 600,
+          }}
+          type="submit"
+          className="d-flex align-items-center justify-content-center"
+          onClick={() => navigateToLogin("/login")}
+        >
+          LOGIN
+        </Button>
+      </div>
       <br></br>
       {showNotify && (
         <Notify

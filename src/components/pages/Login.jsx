@@ -5,12 +5,15 @@ import apiConnection from "../../apiConnection";
 import Notify from "../common/Notify";
 import { apiEndpoints, httpMethods } from "../../constant/API_ENUM";
 import { getCookie } from "../../utils/getCookie";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [loginFormData, setLoginFormData] = useState({
     email: "",
     password: "",
   });
+
+  const navigateToSignUp = useNavigate();
 
   const [showNotify, setShowNotify] = useState(false);
   const [notifyData, setNotifyData] = useState({
@@ -31,7 +34,7 @@ export default function Login() {
         loginFormData
       );
       if (data.status === 200) {
-        console.log(getCookie('token'))
+        console.log(getCookie("token"));
         setShowNotify(true);
         setNotifyData({
           ...notifyData,
@@ -57,8 +60,14 @@ export default function Login() {
   };
 
   return (
-    <div className="login w-25 p-5 border border-dark m-5">
+    <div
+      className="login w-25 p-4 m-5 mx-auto mt-5"
+      style={{ boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px" }}
+    >
       <Form>
+        <div className="text-center mb-3">
+          <Form.Label as="h5">LOGIN</Form.Label>
+        </div>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email</Form.Label>
           <Form.Control
@@ -77,10 +86,39 @@ export default function Login() {
           />
         </Form.Group>
 
-        <Button style={{backgroundColor:"var(--primary-color)"}} variant="primary" type="submit" onClick={(e) => loginUser(e)}>
-          Login
+        <Button
+          style={{
+            backgroundColor: "var(--primary-color)",
+            width: "200px",
+            marginLeft: "auto",
+            marginRight: "auto",
+            display: "block",
+            fontWeight: 600,
+          }}
+          type="submit"
+          onClick={(e) => loginUser(e)}
+        >
+          LOGIN
         </Button>
       </Form>
+      <div className="d-flex mt-3 align-items-center gap-2">
+        <p className="mb-0 mr-2">Don't have an Account?</p>
+        <Button
+          style={{
+            color: "var(--dark-purple)",
+            height: "35px",
+            backgroundColor: "transparent",
+            border: "1px solid var(--dark-purple)",
+            fontSize: "16px",
+            fontWeight: 600,
+          }}
+          type="submit"
+          className="d-flex align-items-center justify-content-center"
+          onClick={() => navigateToSignUp("/signup")}
+        >
+          SIGN UP
+        </Button>
+      </div>
       <br></br>
       {showNotify && (
         <Notify
